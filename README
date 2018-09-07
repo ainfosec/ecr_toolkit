@@ -1,0 +1,5 @@
+Copyright (C) 2018 Assured Information Security, Inc
+
+1. See README.xen_install for detailed guidance on installing the AIS customized version of Xen Project 4.10-unstable. Xen Project has been modified to accept a hypercall that can perform a VMWRITE that will modify the appropriate VMCS's so that the hypervisor performs a VM exit when the instruction is run.
+2. See README.xen_vmexit for detailed guidance on toggling and measuring exiting behavior for specific instructions to conduct instruction timing introspection.
+3. See README.libvmi for detailed guidance on installing and using libVMI for memory and cache timing introspection.
