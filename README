@@ -1,5 +1,26 @@
 Copyright (C) 2018 Assured Information Security, Inc
 
-1. See README.xen_install for detailed guidance on installing the AIS customized version of Xen Project 4.10-unstable. Xen Project has been modified to accept a hypercall that can perform a VMWRITE that will modify the appropriate VMCS's so that the hypervisor performs a VM exit when the instruction is run.
-2. See README.xen_vmexit for detailed guidance on toggling and measuring exiting behavior for specific instructions to conduct instruction timing introspection.
-3. See README.libvmi for detailed guidance on installing and using libVMI for memory and cache timing introspection.
+See our whitepaper here: https://dfrws.org/sites/default/files/session-files/                                               paper_who_watches_the_watcher_detecting_hypervisor_introspection_from_unprivileged_guests.pdf 
+
+# ** Build/run from domU **
+ 
+# Build the ECR package.
+    make
+
+    # Run the module without any options to obtain timing for each instruction, sans the non-temporal move operations.
+        sudo ./ecr.sh ecr.ko
+
+        # To test the non-temporal instructions, enable kernel memory allocation. See README.libvmi in the ecr_hypervisor Github repository to use xen-emulate-response to cause variations in move instruction timing:
+            sudo ./ecr.sh ecr.ko -k
+
+    # For memory timing introspection:
+        sudo ./ecr.sh ecr.ko -m
+        # Memory will be allocated. If using the the AIS modified hypervisor (see Note 3), use the address above for the xen-emulate-response address to emulate. Once it is running, press enter to obtain timing metrics. Repeat as necessary for different address offsets to observe variations across pages.
+                   
+    # For cache timing introspection:
+        sudo ./ecr.sh ecr.ko -l
+        # Memory will be allocated. If using the the AIS modified hypervisor (see Note 3), use the address above for the map-addr address to map. Once it is running, press enter to obtain timing metrics. Repeat as necessary for different address offsets to observe variations and/or ensure granularity.
+
+    # Note 1: Kernel memory allocation may fail. In this case, simply rerun the module.
+    # Note 2: To obtain output in a CSV file, run with -c
+    # Note 3: To obtain the AIS modified hypervisor: git clone --recurse-submodules https://github.com/ainfosec/ecr_hypervisor.git
