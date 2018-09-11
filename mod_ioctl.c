@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     timing_ioctl_struct arg_struct;
 
     if ( argc < 2 ) {
-        puts("Usage: ./prog <option (0: nop, 1: run timing, 2: kmalloc)> [page walk address] [unused]");
+        puts("Usage: ./prog <option (0: nop, 1: run timing, 2: kmalloc)> [unused] [unused]");
         exit(EXIT_FAILURE);
     }
     fd = open("/dev/ECR", O_RDONLY);
@@ -47,7 +47,8 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    // This structure is only being partially used (i only) at the moment
+    // This s not being used at the moment. It was partially used in the past to pass in an
+    // address for a page walk.
     if ( argc > 2 ) {
         arg_struct.i = strtoul_handler(argv[2], 16);
     } else {
@@ -83,13 +84,6 @@ int main(int argc, char **argv) {
             IOCTL_HANDLER;
         case 7:
             ret = ioctl(fd, TIMING_IOCTL_KMALLOC, &arg_struct);
-            IOCTL_HANDLER;
-        case 8:
-            if ( argc < 3 ) {
-                perror("Address to walk page tables required");
-                exit(EXIT_FAILURE);
-            }
-            ret = ioctl(fd, TIMING_IOCTL_PAGEWALK, &arg_struct);
             IOCTL_HANDLER;
         default:
             fprintf(stderr, "Invalid option selection\n");

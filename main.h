@@ -6,8 +6,8 @@
 #include <asm/cpufeatures.h>
 #include <linux/debugfs.h>
 #include <linux/ioctl.h>
-#include <asm/uaccess.h>
 #include <linux/miscdevice.h>
+#include <linux/sched/signal.h>
 
 #ifndef MOD_IOCTL_H
 #define MOD_IOCTL_H
@@ -33,10 +33,6 @@
 #define MEMORY_TIMER_H
 #include "memory_timer.h"
 #endif
-#ifndef WALK_PAGE_TABLE_H
-#define WALK_PAGE_TABLE_H
-#include "walk_page_table.h"
-#endif
 
 #define KMALLOC_SIZE sizeof(uint64_t) * 64
 
@@ -44,4 +40,3 @@ extern int wall_timing_start(void);
 extern int nop_timing_start(bool action);
 extern int cache_timing_start(void);
 extern int memory_timing_start(void);
-extern int walk_page_table(unsigned long addr);

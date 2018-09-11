@@ -12,7 +12,6 @@ typedef struct {
 #define TIMING_IOCTL_WALL_FL    _IOR(TIMING_IOCTL_MAGIC, 5, timing_ioctl_struct)
 #define TIMING_IOCTL_THREAD_FL  _IOR(TIMING_IOCTL_MAGIC, 6, timing_ioctl_struct)
 #define TIMING_IOCTL_KMALLOC    _IOR(TIMING_IOCTL_MAGIC, 7, timing_ioctl_struct)
-#define TIMING_IOCTL_PAGEWALK   _IOR(TIMING_IOCTL_MAGIC, 8, timing_ioctl_struct)
 
 #define IOCTL_HANDLER                                                                           \
     if (ret == -1) {                                                                            \

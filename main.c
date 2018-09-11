@@ -24,15 +24,9 @@ static int timing_release(struct inode *inode, struct file *file) {
 }
 
 static long timing_unlocked_ioctl(struct file *file, unsigned int cmd, unsigned long arg) {
-    void __user *arg_user;
-    union {
-        unsigned long i;
-        unsigned long j;
-    } arg_kernel;
 
     (void) file;
 
-    arg_user = (void __user *) arg;
     pr_info("Command received (cmd): 0x%x\n", cmd);
 
     switch ( cmd ) {
@@ -72,12 +66,6 @@ static long timing_unlocked_ioctl(struct file *file, unsigned int cmd, unsigned 
             pr_info("Memory allocated at virtual address 0x%p (aligned at 0x%p) with a buffer size of %d bytes\n", \
                 (void *) *vmem, (void *) *vmem_aligned, (int) KMALLOC_SIZE);
             break;
-        case TIMING_IOCTL_PAGEWALK:
-            if ( copy_from_user(&arg_kernel.i, arg_user, sizeof(arg_kernel.i)) ) {
-                return -EFAULT;
-            }
-            pr_info("Commencing page walk for address 0x%lx...\n", arg_kernel.i);
-            return (walk_page_table(arg_kernel.i));
         case TIMING_IOCTL_WALL_FL:
             pr_info("Commencing buffer flush wall timing measurements...\n");
             return (buffer_flush_start());

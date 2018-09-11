@@ -1,6 +1,6 @@
 Copyright (C) 2018 Assured Information Security, Inc
 
-See our whitepaper here: https://dfrws.org/sites/default/files/session-files/                                               paper_who_watches_the_watcher_detecting_hypervisor_introspection_from_unprivileged_guests.pdf 
+See our whitepaper here: https://dfrws.org/sites/default/files/session-files/paper_who_watches_the_watcher_detecting_hypervisor_introspection_from_unprivileged_guests.pdf
 
 # ** Build/run from domU **
  

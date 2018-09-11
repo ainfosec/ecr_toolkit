@@ -1,7 +1,7 @@
 ccflags-y := -std=gnu99
 
 obj-m += ecr.o
-ecr-y := main.o instructions.o wall_timer.o nop_timer.o cache_timer.o memory_timer.o walk_page_table.o
+ecr-y := main.o instructions.o wall_timer.o nop_timer.o cache_timer.o memory_timer.o
 
 UNAME_R = $(shell uname -r)
 KDIR ?= /lib/modules/$(UNAME_R)/build
