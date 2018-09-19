@@ -100,6 +100,11 @@ int nop_timing_start(bool action) {
     print_count = false;
     finish = false;
 
+    if (num_online_cpus() < 2) {
+      pr_info("Not enough CPUs to run NOP testing\n");
+      return 0;
+    }
+
     /* Create NOP thread and INSTR thread */
     nop_th = kthread_create(nop_f, NULL, "nop");
     if ( action ) {
