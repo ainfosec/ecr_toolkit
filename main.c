@@ -1,7 +1,15 @@
-#ifndef MAIN_H
-#define MAIN_H
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/time.h>
+#include <linux/slab.h>
+#include <linux/init.h>
+#include <asm/cpufeatures.h>
+#include <linux/debugfs.h>
+#include <linux/ioctl.h>
+#include <linux/miscdevice.h>
+#include <linux/sched/signal.h>
+
 #include "main.h"
-#endif
 
 // These variables are used to kmalloc() memory for non-temporal detection and cache/memory timing
 uintptr_t *vmem;

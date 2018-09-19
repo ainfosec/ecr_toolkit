@@ -1,7 +1,5 @@
-#ifndef NOP_TIMER_H
-#define NOP_TIMER_H
+#include "main.h"
 #include "nop_timer.h"
-#endif
 
 struct task_struct *nop_th;
 struct task_struct *instr_th;

@@ -1,7 +1,5 @@
-#ifndef MEMORY_TIMER_H
-#define MEMORY_TIMER_H
+#include "main.h"
 #include "memory_timer.h"
-#endif
 
 struct page_struct {
     char bytes[PAGE_SIZE];

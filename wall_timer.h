@@ -1,7 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
-#include "main.h"
-#endif
+#ifndef WALL_TIMER_H
+#define WALL_TIMER_H
 
 extern uintptr_t *vmem_aligned;
 
@@ -31,3 +29,5 @@ extern uintptr_t *vmem_aligned;
 
 int wall_timing_start(void);
 int buffer_flush_start(void);
+
+#endif

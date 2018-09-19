@@ -1,10 +1,10 @@
+#ifndef NOP_TIMER_H
+#define NOP_TIMER_H
+
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
-#ifndef MAIN_H
-#define MAIN_H
-#include "main.h"
-#endif
+//#include "main.h"
 
 #define NOP_TIMING_LOOP(FUNCTION_CALL, PRINT_NAME, LOOP_ITERATIONS) \
     reset_count = true;                                             \
@@ -30,3 +30,6 @@
     } else {                                                                          \
         pr_info("NOP_%s: 0\n", PRINT_NAME);                                           \
     }
+
+
+#endif

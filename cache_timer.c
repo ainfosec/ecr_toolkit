@@ -1,7 +1,4 @@
-#ifndef CACHE_TIMER_H
-#define CACHE_TIMER_H
 #include "cache_timer.h"
-#endif
 
 unsigned long inline cache_timing_probe(char *addr) {
     volatile unsigned long time;

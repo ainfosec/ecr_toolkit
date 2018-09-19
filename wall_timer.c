@@ -1,7 +1,5 @@
-#ifndef WALL_TIMER_H
-#define WALL_TIMER_H
+#include "main.h"
 #include "wall_timer.h"
-#endif
 
 int wall_timing_start(void) {
     struct timespec ts_start, ts_end, test_of_time;
