@@ -19,39 +19,39 @@
 extern uintptr_t *vmem_aligned;
 
 // CPU feature check for virtual machine extensions
-void inline cpuid_test_support_f(void);
+void cpuid_test_support_f(void);
 
 // XOR
-void inline xor_f(void);
+void xor_f(void);
 
 // ** Begin Instructions That Cause VM Exits Unconditionally **
 
 // CPUID
 // Returns processor identification and feature information in the EAX, EBX, ECX, and EDX registers.
-void inline cpuid_f(void);
+void cpuid_f(void);
 
 // GETSEC
 // The GETSEC instruction provides a capability leaf function for system software to discover
 // the available GETSEC leaf functions that are supported in a processor. Table 6-2 lists the
 // currently available GETSEC leaf functions.
-void inline getsec_f(void);
+void getsec_f(void);
 
 // INVD
 // Invalidates (flushes) the processor's internal caches and issues a special-function bus
 // cycle that directs external caches to also flush themselves. Data held in internal caches
 // is not written back to main memory.
-void inline invd_f(void);
+void invd_f(void);
 
 // XSETBV
 // Writes the contents of registers EDX:EAX into the 64-bit extended control register (XCR)
 // specified in the ECX register. (On processors that support the Intel 64 architecture,
 // the high-order 32 bits of RCX are ignored.)
-void inline xsetbv_f(void);
+void xsetbv_f(void);
 
 /*
 // INVEPT
 // Invalidate Cached EPT Mappings
-void inline invept_f(void) {
+void  invept_f(void) {
     int operand = 0x0001;
     int type = 1;
     asm volatile(
@@ -105,7 +105,7 @@ void inline invept_f(void) {
 // The CLTS instruction causes a VM exit if the bits in position 3 (corresponding to CR0.TS)
 // are set in both the CR0 guest/host mask and the CR0 read shadow.
 // Description: Clears the task-switched (TS) flag in the CR0 register.
-void inline clts_f(void);
+void clts_f(void);
 
 // ENCLS
 // The ENCLS instruction causes a VM exit if the "enable ENCLS exiting" VM-execution control is 1 and one of the following is true:
@@ -123,23 +123,23 @@ void inline clts_f(void);
 //    - If the "unconditional I/O exiting" VM-execution control is 1 and the "use I/O bitmaps" VM-execution control the instruction causes a VM exit.
 //    - If the "use I/O bitmaps" VM-execution control is 1, the instruction causes a VM exit if it attempts to access an I/O port corresponding to a bit set to 1 in the appropriate I/O bitmap (see Section 24.6.4). If an I/O operation "wraps around" the 16-bit I/O-port space (accesses ports FFFFH and 0000H), the I/O instruction causes a VM exit (the "unconditional I/O exiting" VM-execution control is ignored if the "use I/O bitmaps" VM-execution control is 1).
 //See Section 25.1.1 for information regarding the priority of VM exits relative to faults that may be caused by the INS and OUTS instructions.
-void inline inb_f(void);
+void inb_f(void);
 
 // OUT, OUTS/OUTSB/OUTSW/OUTSD
 // (See the exiting description in the "IN, INS/INSB/INSW/INSD" section above)
-void inline outb_f(void);
+void outb_f(void);
 
 // INVLPG
 // The INVLPG instruction causes a VM exit if the "INVLPG exiting" VM-execution control is 1.
 // Description: Invalidates any translation lookaside buffer (TLB) entries specified with the
 // source operand. The source operand is a memory address. The processor determines the page
 // that contains that address and flushes all TLB entries for that page.
-void inline invlpg_f(void);
+void invlpg_f(void);
 
 // INVPCID
 // The INVPCID instruction causes a VM exit if the "INVLPG exiting" and "enable INVPCID"
 // VM-execution controls are both 1.
-void inline invpcid_f(void);
+void invpcid_f(void);
 
 // LGDT, LIDT, LLDT, LTR, SGDT, SIDT, SLDT, STR
 // These instructions cause VM exits if the "descriptor-table exiting" VM-execution control is 1.
@@ -161,35 +161,35 @@ void inline invpcid_f(void);
 
 // MOV from CR8
 // The MOV from CR8 instruction causes a VM exit if the “CR8-store exiting” VM-execution control is 1.
-void inline mov_from_cr8_f(void);
+void mov_from_cr8_f(void);
 
 // MOV to CR0
 // The MOV to CR0 instruction causes a VM exit unless the value of its source operand matches, for the position of each bit set in the CR0 guest/host mask, the corresponding bit in the CR0 read shadow. (If every bit is clear in the CR0 guest/host mask, MOV to CR0 cannot cause a VM exit.)
-void inline mov_to_cr0_f(void);
+void mov_to_cr0_f(void);
 
 // MOV to CR3
 // The MOV to CR3 instruction causes a VM exit unless the “CR3-load exiting” VM-execution control is 0 or the value of its source operand is equal to one of the CR3-target values specified in the VMCS. Only the first n CR3-target values are considered, where n is the CR3-target count. If the “CR3-load exiting” VMexecution control is 1 and the CR3-target count is 0, MOV to CR3 always causes a VM exit.
 // The first processors to support the virtual-machine extensions supported only the 1-setting of the “CR3-load exiting” VM-execution control. These processors always consult the CR3-target controls to determine whether an execution of MOV to CR3 causes a VM exit.
-void inline mov_to_cr3_f(void);
+void mov_to_cr3_f(void);
 
 // MOV to CR4
 // The MOV to CR4 instruction causes a VM exit unless the value of its source operand matches, for the position of each bit set in the CR4 guest/host mask, the corresponding bit in the CR4 read shadow.
-void inline mov_to_cr4_f(void);
+void mov_to_cr4_f(void);
 
 // MOV to CR8
 // The MOV to CR8 instruction causes a VM exit if the “CR8-load exiting” VM-execution control is 1.
-void inline mov_to_cr8_f(void);
+void mov_to_cr8_f(void);
 
 // MOV DR
 // The MOV DR instruction causes a VM exit if the “MOV-DR exiting” VM-execution control is 1. Such VM exits represent an exception to the principles identified in Section 25.1.1 in that they take priority over the following: general-protection exceptions based on privilege level; and invalid-opcode exceptions that occur because CR4.DE=1 and the instruction specified access to DR4 or DR5.
-void inline mov_dr0_f(void);
-void inline mov_dr1_f(void);
-void inline mov_dr2_f(void);
-void inline mov_dr3_f(void);
-void inline mov_dr4_f(void);
-void inline mov_dr5_f(void);
-void inline mov_dr6_f(void);
-void inline mov_dr7_f(void);
+void mov_dr0_f(void);
+void mov_dr1_f(void);
+void mov_dr2_f(void);
+void mov_dr3_f(void);
+void mov_dr4_f(void);
+void mov_dr5_f(void);
+void mov_dr6_f(void);
+void mov_dr7_f(void);
 
 // MWAIT
 // The MWAIT instruction causes a VM exit if the “MWAIT exiting” VM-execution control is 1.
@@ -231,28 +231,28 @@ void inline mov_dr7_f(void);
 //    - The value of ECX is in the range C0000000H – C0001FFFH and bit n in read bitmap for high MSRs
 //      is 1, where n is the value of ECX & 00001FFFH.
 // See Section 24.6.9 for details regarding how these bitmaps are identified.
-void inline rdmsr_f(void);
+void rdmsr_f(void);
 
 // RDPMC
 // The RDPMC instruction causes a VM exit if the “RDPMC exiting” VM-execution control is 1.
-void inline rdpmc_f(void);
+void rdpmc_f(void);
 
 // RDRAND
 // The RDRAND instruction causes a VM exit if the “RDRAND exiting” VM-execution control is 1.
-void inline rdrand_f(void);
+void rdrand_f(void);
 
 // RDSEED
 // The RDSEED instruction causes a VM exit if the “RDSEED exiting” VM-execution control is 1.
-void inline rdseed_f(void);
+void rdseed_f(void);
 
 // RDTSC
 // The RDTSC instruction causes a VM exit if the “RDTSC exiting” VM-execution control is 1.
-void inline rdtsc_f(void);
+void rdtsc_f(void);
 
 // RDTSCP
 // The RDTSCP instruction causes a VM exit if the “RDTSC exiting” and “enable RDTSCP”
 // VM-execution controls are both 1.
-void inline rdtscp_f(void);
+void rdtscp_f(void);
 
 // RSM
 // The RSM instruction causes a VM exit if executed in system-management mode (SMM).
@@ -284,7 +284,7 @@ void inline rdtscp_f(void);
 // <Not implemented>
 
 // The WBINVD instruction causes a VM exit if the “WBINVD exiting” VM-execution control is 1.
-void inline wbinvd_f(void);
+void wbinvd_f(void);
 
 // WRMSR
 // The WRMSR instruction causes a VM exit if any of the following are true:
@@ -294,7 +294,7 @@ void inline wbinvd_f(void);
 //    - The value of ECX is in the range C0000000H – C0001FFFH and bit n in write bitmap for high MSRs is 1, where n is the value of ECX & 00001FFFH.
 // See Section 24.6.9 for details regarding how these bitmaps are identified.
 // Description: Writes the contents of registers EDX:EAX into the 64-bit model specific register (MSR) specified in the ECX register.
-void inline wrmsr_f(void);
+void wrmsr_f(void);
 
 // XRSTORS
 // The XRSTORS instruction causes a VM exit if the “enable XSAVES/XRSTORS” VM-execution control is 1 and any bit is set in the logical-AND of the following three values: EDX:EAX, the IA32_XSS MSR, and the XSS-exiting bitmap (see Section 24.6.19).
@@ -310,11 +310,11 @@ void inline wrmsr_f(void);
 
 // MOVNTDQA
 // Load Double Quadword Non-Temporal Aligned Hint
-void inline movntdqa_f(void);
+void movntdqa_f(void);
 
 // MOVNTDQ
 // Store Packed Integers Using Non-Temporal Hint
-void inline movntdq_f(void);
+void movntdq_f(void);
 
 // ** End Instructions That Are Non-Temporal **
 
@@ -322,15 +322,15 @@ void inline movntdq_f(void);
 
 // CLFLUSH
 // Flush Cache Line
-void inline clflush_f(void);
+void clflush_f(void);
 
 // SFENCE
 // Store Fence
-void inline sfence_f(void);
+void sfence_f(void);
 
 // MFENCE
 // Memory Fence
-void inline mfence_f(void);
+void mfence_f(void);
 
 // ** End Instructions That Cause a Write-Combining Buffer Flush **
 
