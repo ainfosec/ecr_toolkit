@@ -34,16 +34,16 @@ int cache_timing_handler(int offset) {
     extern uintptr_t *vmem_aligned;
   
     for ( i = 0; i < COUNT; i++ ) {
-        cache_timing_flush((char *) (*vmem_aligned+offset));
+        cache_timing_flush((char *) (vmem_aligned+offset));
         msleep(1);
-        t = cache_timing_probe((char *) (*vmem_aligned+offset));
+        t = cache_timing_probe((char *) (vmem_aligned+offset));
         avg += t;
     }
 
     avg /= COUNT;
 
     pr_info("Average clock cycles at address 0x%lx (offset: 0x%x): %d\n", \
-            (unsigned long) *vmem_aligned+offset, offset, avg);
+            (unsigned long) vmem_aligned+offset, offset, avg);
 
     return 0;
 }
