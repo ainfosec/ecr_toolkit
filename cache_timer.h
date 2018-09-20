@@ -4,9 +4,6 @@
 #include <linux/sched.h>
 #include <linux/delay.h>
 
-//#include "main.h"
-
-
 #define COUNT 100
 
 int cache_timing_handler(int offset);

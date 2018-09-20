@@ -7,7 +7,6 @@
 #include <linux/debugfs.h>
 #include <linux/ioctl.h>
 #include <linux/miscdevice.h>
-#include <linux/sched/signal.h>
 
 #include "main.h"
 

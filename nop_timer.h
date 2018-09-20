@@ -4,17 +4,19 @@
 #include <linux/kthread.h>
 #include <linux/delay.h>
 
-//#include "main.h"
-
 #define NOP_TIMING_LOOP(FUNCTION_CALL, PRINT_NAME, LOOP_ITERATIONS) \
-    reset_count = true;                                             \
-    while ( reset_count == true && !kthread_should_stop() ) {}      \
-    for ( int i = 0; i < LOOP_ITERATIONS; i++ ) {                   \
-        FUNCTION_CALL;                                              \
-    }                                                               \
-    pr_info("NOP_%s: ", PRINT_NAME);                                \
-    print_count = true;                                             \
-    while ( print_count == true && !kthread_should_stop() ) {}
+    if ( num_online_cpus() >= 2 ) {                                  \
+        reset_count = true;                                         \
+        while ( reset_count == true && !kthread_should_stop() ) {}  \
+        for ( int i = 0; i < LOOP_ITERATIONS; i++ ) {               \
+            FUNCTION_CALL;                                          \
+        }                                                           \
+        pr_info("NOP_%s: ", PRINT_NAME);                            \
+        print_count = true;                                         \
+        while ( print_count == true && !kthread_should_stop() ) {}  \
+    } else {                                                        \
+        pr_info("NOP_%s: 0\n", PRINT_NAME);                         \
+    }
 
 #define NOP_TIMING_LOOP_SUSPEND_INTERRUPTS(FUNCTION_CALL, PRINT_NAME, LOOP_ITERATIONS, FLAGS) \
     SUSPEND_INTERRUPTS(FLAGS, NOP_TIMING_LOOP(FUNCTION_CALL, PRINT_NAME, LOOP_ITERATIONS))

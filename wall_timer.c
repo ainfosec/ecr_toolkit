@@ -18,7 +18,7 @@ int wall_timing_start(void) {
     TIMING_LOOP(inb_f(), "INB", 100)
     TIMING_LOOP(outb_f(), "OUTB", 100)
     TIMING_LOOP(invlpg_f(), "INVLPG", 100)
-    TIMING_LOOP(invpcid_f(), "INVPCID", 100)
+    /* TIMING_LOOP(invpcid_f(), "INVPCID", 100) */
     TIMING_LOOP_SUSPEND_INTERRUPTS(mov_from_cr8_f(), "MOV_FROM_CR8", 100, flags)
     TIMING_LOOP_SUSPEND_INTERRUPTS(mov_to_cr0_f(), "MOV_TO_CR0", 100, flags)
     TIMING_LOOP_SUSPEND_INTERRUPTS(mov_to_cr3_f(), "MOV_TO_CR3", 100, flags)

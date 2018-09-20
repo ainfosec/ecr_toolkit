@@ -51,6 +51,7 @@ int instr_f(void *unused) {
     NOP_TIMING_LOOP(inb_f(), "INB", 100)
     NOP_TIMING_LOOP(outb_f(), "OUTB", 100)
     NOP_TIMING_LOOP(invlpg_f(), "INVLPG", 100)
+    /* NOP_TIMING_LOOP(invpcid_f(), "INVPCID", 100) */
     NOP_TIMING_LOOP_SUSPEND_INTERRUPTS(mov_from_cr8_f(), "MOV_FROM_CR8", 100, flags)
     NOP_TIMING_LOOP_SUSPEND_INTERRUPTS(mov_to_cr0_f(), "MOV_TO_CR0", 100, flags)
     NOP_TIMING_LOOP_SUSPEND_INTERRUPTS(mov_to_cr3_f(), "MOV_TO_CR3", 100, flags)
@@ -99,11 +100,6 @@ int nop_timing_start(bool action) {
     reset_count = false;
     print_count = false;
     finish = false;
-
-    if (num_online_cpus() < 2) {
-      pr_info("Not enough CPUs to run NOP testing\n");
-      return 0;
-    }
 
     /* Create NOP thread and INSTR thread */
     nop_th = kthread_create(nop_f, NULL, "nop");

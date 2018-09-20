@@ -74,9 +74,9 @@ void invd_f(void) {
 // specified in the ECX register. (On processors that support the Intel 64 architecture,
 // the high-order 32 bits of RCX are ignored.)
 void xsetbv_f(void) {
-    int in_rax;
+    int in_rax = 0;
     int out_rcx;
-    int in_rdx;
+    int in_rdx = 0;
     asm volatile (
         "xsetbv"
         : "=c"(out_rcx)
@@ -340,6 +340,7 @@ void mov_dr7_f(void) {
 //         - If the “PAUSE exiting” VM-execution control is 0, the PAUSE instruction executes normally.
 //         - If the “PAUSE exiting” VM-execution control is 1, the PAUSE instruction causes a VM exit.
 //    The “PAUSE-loop exiting” VM-execution control is ignored if CPL > 0.
+// <Not implemented>
 
 // RDMSR
 // The RDMSR instruction causes a VM exit if any of the following are true:

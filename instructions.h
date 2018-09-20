@@ -221,6 +221,7 @@ void mov_dr7_f(void);
 //         - If the “PAUSE exiting” VM-execution control is 0, the PAUSE instruction executes normally.
 //         - If the “PAUSE exiting” VM-execution control is 1, the PAUSE instruction causes a VM exit.
 //    The “PAUSE-loop exiting” VM-execution control is ignored if CPL > 0.
+// <Not implemented>
 
 // RDMSR
 // The RDMSR instruction causes a VM exit if any of the following are true:
