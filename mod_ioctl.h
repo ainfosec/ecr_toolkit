@@ -1,3 +1,6 @@
+#ifndef MOD_IOCTL_H
+#define MOD_IOCTL_H
+
 typedef struct {
     unsigned long i;
     unsigned long j;
@@ -22,3 +25,4 @@ typedef struct {
         arg_struct.i, arg_struct.j, ret, errno);                                                \
     break;
 
+#endif

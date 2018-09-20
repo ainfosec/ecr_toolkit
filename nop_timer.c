@@ -1,7 +1,5 @@
-#ifndef NOP_TIMER_H
-#define NOP_TIMER_H
+#include "main.h"
 #include "nop_timer.h"
-#endif
 
 struct task_struct *nop_th;
 struct task_struct *instr_th;
@@ -101,6 +99,11 @@ int nop_timing_start(bool action) {
     reset_count = false;
     print_count = false;
     finish = false;
+
+    if (num_online_cpus() < 2) {
+      pr_info("Not enough CPUs to run NOP testing\n");
+      return 0;
+    }
 
     /* Create NOP thread and INSTR thread */
     nop_th = kthread_create(nop_f, NULL, "nop");
